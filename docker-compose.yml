@@ -2,14 +2,16 @@ version: "3.6"
 services:
   #=== 網頁伺服器的container ======================
   web:
-    image: jerry/test
-    # dns: 8.8.8.8
+    image: jerry/php53-apache
     ports:
-      # 使用隨機的port 80
       - "80:80"
       - "443:443"
     volumes:
       - ./projects:/var/www/html
+      - ./etc/php:/usr/local/etc/php/conf.d
+      - ./log/web:/var/log/apache2
+      - ./etc/default.conf:/etc/apache2/sites-enabled/default.conf
+      - ./etc/ssl:/etc/apache2/ssl
     hostname: web
     networks:
       - net
